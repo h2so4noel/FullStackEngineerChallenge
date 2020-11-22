@@ -1,6 +1,20 @@
 <template>
   <div id="app">
     <div id="nav">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <button class="btn btn-primary">
+              BOOTSTRAP IS HERE
+            </button>
+          </div>
+          <div class="col-md-6">
+            <button class="btn btn-primary">
+              BOOTSTRAP IS HERE
+            </button>
+          </div>
+        </div>
+      </div>
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
