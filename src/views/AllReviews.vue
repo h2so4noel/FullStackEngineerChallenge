@@ -1,11 +1,10 @@
 <template>
   <div class="container">
-    <div class="h1">
-      All Reviews
-      <div v-if="hasReviews">
-        <div v-for="review in reviews" :key="review.id">
-          {{ review.taskName }}
-          {{ review.content }}
+    <div class="all-revieiws-container">
+      <h1>Reviews</h1> <hr />
+      <div class="row" v-if="hasReviews">
+        <div class="col-md-4" v-for="review in reviews" :key="review.id">
+          <ReviewItem :reviewData="review" />
         </div>
       </div>
     </div>
@@ -14,7 +13,12 @@
 
 <script>
 import { loadAllReviews } from '../api/review';
+import ReviewItem from '../components/ReviewItem.vue';
+
 export default {
+  components: {
+    ReviewItem,
+  },
   data() {
     return {
       reviews: [],
@@ -37,3 +41,6 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+</style>
