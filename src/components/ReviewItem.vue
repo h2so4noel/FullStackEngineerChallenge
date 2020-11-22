@@ -1,31 +1,37 @@
 <template>
   <div class="review-item-container">
-    <div class="review-item" v-if="reviewData">
-      <div class="task-name text-secondary">{{ reviewData.createdAt }}</div>
-      <h4>{{ reviewData.taskName }}</h4>
-      {{ reviewData.content }}
+    <div class="review-item" v-if="review">
+      <div class="task-name text-secondary">{{ review.createdAt }}</div>
+      <h4>{{ review.taskName }}</h4>
+      {{ review.content }}
     </div>
+    <Feedbacks :feedbacks="feedbacks" v-if="feedbacks" />
     <div class="button-menu">
       <button class="btn btn-sm btn-primary">
-        Add Feedback    
+        Add Feedback
       </button>
     </div>
   </div>
 </template>
 
 <script>
+import Feedbacks from './Feedbacks.vue';
+
 export default {
+  components: {
+    Feedbacks,
+  },
   props: {
-    reviewData: Object,
+    review: {},
   },
   data() {
     return {
-      review: {},
+      feedbacks: [],
     };
   },
   created() {
-    this.review = this.props.reviewData;
-  }
+    this.feedbacks = this.review.feedbacks;
+  },
 }
 </script>
 

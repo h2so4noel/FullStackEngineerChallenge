@@ -2,9 +2,9 @@
   <div class="container">
     <div class="all-reviews-container">
       <h1>Reviews</h1> <hr />
-      <div class="all-reviews" v-if="hasReviews">
+      <div class="all-reviews" v-if="state.hasReviews">
         <div class="all-reviews__review-item" v-for="review in reviews" :key="review.id">
-          <ReviewItem :reviewData="review" />
+          <ReviewItem :review="review" />
         </div>
       </div>
     </div>
@@ -22,12 +22,10 @@ export default {
   data() {
     return {
       reviews: [],
+      state: {
+        hasReviews: false,
+      },
     };
-  },
-  computed: {
-    hasReviews() {
-      return this.reviews.length !== 0;
-    },
   },
   created() {
     this.loadAllReviews();
@@ -36,6 +34,7 @@ export default {
     loadAllReviews() {
       loadAllReviews().then((res) => {
         this.reviews = res.data;
+        this.state.hasReviews = true;
       });
     },
   },

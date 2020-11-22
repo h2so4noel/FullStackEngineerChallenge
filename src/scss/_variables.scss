@@ -9,5 +9,11 @@ $theme-colors: (
   "dark":       #484545,
 );
 
+$primary: #AB8750;
+$secondary: #714F38;
+$success: #8B9C8D;
+$light: #F5F3F0;
+$dark: #484545;
+
 @import '~bootstrap/scss/_functions.scss';
 @import '~bootstrap/scss/_variables.scss';
