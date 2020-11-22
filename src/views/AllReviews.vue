@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <div class="all-revieiws-container">
+    <div class="all-reviews-container">
       <h1>Reviews</h1> <hr />
-      <div class="row" v-if="hasReviews">
-        <div class="col-md-4" v-for="review in reviews" :key="review.id">
+      <div class="all-reviews" v-if="hasReviews">
+        <div class="all-reviews__review-item" v-for="review in reviews" :key="review.id">
           <ReviewItem :reviewData="review" />
         </div>
       </div>
@@ -43,4 +43,12 @@ export default {
 </script>
 
 <style lang="scss">
+.all-reviews {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.all-reviews__review-item {
+  flex: 0 0 100%;
+}
 </style>

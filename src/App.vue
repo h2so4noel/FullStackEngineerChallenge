@@ -25,9 +25,7 @@
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
 }
-
 // margin top for all containers
 .container {
   margin-top: 3rem;
