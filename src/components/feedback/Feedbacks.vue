@@ -2,7 +2,8 @@
   <div class="feedbacks-container" v-if="feedbacks">
     <div class="feedbacks">
       <div class="feedbacks__item" v-for="feedback in feedbacks" :key="feedback._id">
-        {{ feedback.content }}
+        <span v-if="feedback.content">{{ feedback.content }}</span>
+        <span class="small feedbacks__pending" v-else> Waiting feedback from assigned employee... </span>
         <div class="feedbacks__assignee small">
           <!-- TODO: Populate feedback user name (either via API or Mongoose populate) -->
           - {{ feedback.assignedUser.name }}, <span class="feedbacks__time">{{ getDateTime(feedback) }}</span>
@@ -49,6 +50,11 @@ export default {
 
 .feedbacks__assignee {
   color: $secondary;
+  font-style: italic;
+}
+
+.feedbacks__pending {
+  color: $light;
   font-style: italic;
 }
 </style>
