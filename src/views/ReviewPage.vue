@@ -2,6 +2,9 @@
   <div class="container">
     <div class="all-reviews-container">
       <h1>Reviews</h1> <hr />
+      <div class="all-reviews__loading spinner-border" role="status" v-if="!state.hasReviews">
+        <span class="sr-only">Loading...</span>
+      </div>
       <div class="all-reviews" v-if="state.hasReviews">
         <div class="all-reviews__review-item" v-for="review in reviews" :key="review.id">
           <ReviewItem :review="review" />
@@ -46,6 +49,12 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+.all-reviews__loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .all-reviews__review-item {
   flex: 0 0 100%;

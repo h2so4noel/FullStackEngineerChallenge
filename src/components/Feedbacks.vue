@@ -4,7 +4,7 @@
       <div class="feedbacks__item" v-for="feedback in feedbacks" :key="feedback._id">
         {{ feedback.content }}
         <div class="feedbacks__assignee small">
-          - {{ feedback.assignedUserId }}, <span class="feedbacks__time">{{ feedback.createdAt }}</span>
+          - {{ feedback.assignedUserId }}, <span class="feedbacks__time">{{ getDateTime(feedback) }}</span>
         </div>
       </div>
     </div>
@@ -17,7 +17,10 @@ export default {
     feedbacks: {},
   },
   methods: {
-  }
+    getDateTime(feedback) {
+      return new Date(feedback.createdAt).toUTCString();
+    },
+  },
 }
 </script>
 

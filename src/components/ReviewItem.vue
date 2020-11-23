@@ -1,7 +1,7 @@
 <template>
   <div class="review-item-container">
-    <div class="review-item" v-if="review">
-      <div class="task-name text-secondary">{{ review.createdAt }}</div>
+    <div class="review-item" v-if="review && state.hasReviewee">
+      <div class="task-name text-secondary">Reviewed by: {{ reviewee.name }} - {{ getDateTime }}</div>
       <h4>{{ review.taskName }}</h4>
       {{ review.content }}
     </div>
@@ -17,6 +17,7 @@
 
 <script>
 import Feedbacks from './Feedbacks.vue';
+import { loadUserFromId } from '../api/user.js';
 
 export default {
   components: {
@@ -28,10 +29,28 @@ export default {
   data() {
     return {
       feedbacks: [],
+      reviewee: {},
+      state: {
+        hasReviewee: false,
+      },
     };
+  },
+  computed: {
+    getDateTime() {
+      return new Date(this.review.createdAt).toUTCString();
+    }
   },
   created() {
     this.feedbacks = this.review.feedbacks;
+    this.loadUserFromId(this.review.revieweeUserId);
+  },
+  methods: {
+    loadUserFromId(id) {
+      loadUserFromId(id).then((res) => {
+        this.state.hasReviewee = true;
+        this.reviewee = res.data;
+      })
+    },
   },
 }
 </script>

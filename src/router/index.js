@@ -1,6 +1,7 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import ReviewPage from '../views/ReviewPage.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import ReviewPage from '../views/ReviewPage.vue';
+import EmployeePage from '../views/EmployeePage.vue';
 import NotFound from '../views/NotFound.vue';
 
 Vue.use(VueRouter)
@@ -11,10 +12,17 @@ const routes = [
     name: 'Main',
     redirect: '/review',
   },
+  // Admin view for list of all reviews in system
   {
     path: '/reviews',
     name: 'ReviewPage',
     component: ReviewPage,
+  },
+  // Admin view for list of all employees in system
+  {
+    path: '/employees',
+    name: 'EmployeePage',
+    component: EmployeePage,
   },
   {
     path: '*',
