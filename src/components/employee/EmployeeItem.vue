@@ -58,6 +58,7 @@ import RemoveEmployeeModal from './RemoveEmployeeModal.vue';
 import NewReviewModal from '../review/NewReviewModal.vue';
 
 import { editUser, deleteUser } from '../../api/user.js';
+import { createReview } from '../../api/review.js';
 
 export default {
   components: {
@@ -106,8 +107,13 @@ export default {
         console.log(err);
       });
     },
-    onSubmitAddReview(review) {
-      console.log(review);
+    async onSubmitAddReview(review) {
+      await createReview(review).then((res) => {
+        this.employee.reviews.push(res.data);
+        this.state.showAddReviewModal = false;
+      }).catch((err) => {
+        console.log(err);
+      });
     },
   }
 }

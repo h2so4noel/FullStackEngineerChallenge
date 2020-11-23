@@ -1,5 +1,12 @@
 <template>
-  <div class="review-item-container">
+  <div>
+    <EditReviewModal
+      v-if="state.showEditReviewModal" 
+      :reviewData="review"
+      :onClose="onClickEditReview" 
+      :onSubmit="onSubmitEditReview" 
+    />
+    <div class="review-item-container">
     <div class="review-item" v-if="review">
       <div class="task-name"><span class="text-secondary">{{ review.revieweeUser.name }}</span> - {{ getDateTime }}</div>
       <h4>{{ review.taskName }}</h4>
@@ -8,26 +15,38 @@
     <hr />
     <Feedbacks :feedbacks="feedbacks" v-if="feedbacks" />
     <div class="button-menu">
+      <button class="btn btn-sm btn-link text-primary mr-2" @click="onClickEditReview">
+        Edit Review
+      </button>
       <button class="btn btn-sm btn-primary">
         Assign Feedback
       </button>
     </div>
   </div>
+  </div>
 </template>
 
 <script>
+import EditReviewModal from './EditReviewModal.vue';
 import Feedbacks from '../Feedbacks.vue';
+
+import { editReview } from '../../api/review'
 
 export default {
   components: {
     Feedbacks,
+    EditReviewModal,
   },
   props: {
-    review: {},
+    reviewData: {},
   },
   data() {
     return {
+      review: {},
       feedbacks: [],
+      state: {
+        showEditReviewModal: false,
+      },
     };
   },
   computed: {
@@ -36,7 +55,19 @@ export default {
     }
   },
   created() {
-    this.feedbacks = this.review.feedbacks;
+    this.review = this.reviewData;
+  },
+  methods: {
+    onClickEditReview() {
+      this.state.showEditReviewModal = !this.state.showEditReviewModal;
+    },
+    async onSubmitEditReview(review) {
+      await editReview(review).then((res) => {
+        this.review = res.data;
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
   },
 }
 </script>

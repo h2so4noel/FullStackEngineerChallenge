@@ -7,7 +7,7 @@
       </div>
       <div class="all-reviews" v-if="state.hasReviews">
         <div class="all-reviews__review-item" v-for="review in reviews" :key="review.id">
-          <ReviewItem :review="review" />
+          <ReviewItem :reviewData="review" />
         </div>
       </div>
     </div>
