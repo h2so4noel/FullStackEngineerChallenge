@@ -1,7 +1,7 @@
 <template>
   <div class="review-item-container">
     <div class="review-item" v-if="review">
-      <div class="task-name text-secondary">{{ getDateTime }}</div>
+      <div class="task-name"><span class="text-secondary">{{ review.revieweeUser.name }}</span> - {{ getDateTime }}</div>
       <h4>{{ review.taskName }}</h4>
       {{ review.content }}
     </div>
@@ -9,7 +9,7 @@
     <Feedbacks :feedbacks="feedbacks" v-if="feedbacks" />
     <div class="button-menu">
       <button class="btn btn-sm btn-primary">
-        Edit Review
+        Assign Feedback
       </button>
     </div>
   </div>

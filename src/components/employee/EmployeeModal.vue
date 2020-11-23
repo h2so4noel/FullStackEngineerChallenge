@@ -1,7 +1,7 @@
 <template>
   <div class="edit-employee-modal-container">
     <Modal :onClose="onClose">
-      <div slot="header">Edit Employee</div>
+      <div slot="header">Employee</div>
       <div>
         <div class="form-group">
           <label>Name</label>
@@ -9,7 +9,7 @@
         </div>
       </div>
       <div slot="footer">
-        <button class="btn btn-primary" @click="onClickSubmit">
+        <button class="btn btn-primary" @click="onSubmit(employee)">
           Save
         </button>
       </div>
@@ -33,11 +33,6 @@ export default {
   created() {
     this.employee = this.employeeData;
   },
-  methods: {
-    onClickSubmit() {
-      this.onSubmit(this.employee);
-    },
-  }
 }
 </script>
 

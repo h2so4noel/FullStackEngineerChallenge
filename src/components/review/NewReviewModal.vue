@@ -42,13 +42,13 @@ export default {
     return {
       review: {
         content: '',
-        revieweeUserId: '',
+        revieweeUser: {},
         taskName: '',
       },
     };
   },
   created() {
-    this.review.revieweeUserId = this.employee._id;
+    this.review.revieweeUser = this.employee;
   },
   methods: {
     onAddReview() {

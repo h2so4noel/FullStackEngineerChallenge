@@ -5,7 +5,7 @@
         {{ feedback.content }}
         <div class="feedbacks__assignee small">
           <!-- TODO: Populate feedback user name (either via API or Mongoose populate) -->
-          - {{ feedback.assignedUserId }}, <span class="feedbacks__time">{{ getDateTime(feedback) }}</span>
+          - {{ feedback.assignedUser.name }}, <span class="feedbacks__time">{{ getDateTime(feedback) }}</span>
         </div>
       </div>
     </div>

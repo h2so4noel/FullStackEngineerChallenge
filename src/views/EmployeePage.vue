@@ -1,8 +1,9 @@
 <template>
   <div class="container">
     <div class="employee-page-container">
-      <NewEmployeeModal 
+      <EmployeeModal 
         v-if="state.showNewEmployeeModal" 
+        :employeeData="{}"
         :onClose="onClickAddEmployee" 
         :onSubmit="onSubmitAddEmployee" 
       />
@@ -25,12 +26,12 @@
 
 <script>
 import { loadAllUsers, createUser } from '../api/user.js';
-import NewEmployeeModal from '../components/employee/NewEmployeeModal.vue';
+import EmployeeModal from '../components/employee/EmployeeModal.vue';
 import EmployeeItem from '../components/employee/EmployeeItem.vue';
 
 export default {
   components: {
-    NewEmployeeModal,
+    EmployeeModal,
     EmployeeItem,
   },
   data() {
@@ -58,10 +59,9 @@ export default {
     onClickAddEmployee() {
       this.state.showNewEmployeeModal = !this.state.showNewEmployeeModal;
     },
-    onSubmitAddEmployee(employeeData) {
-      console.log(employeeData);
+    async onSubmitAddEmployee(employeeData) {
       this.state.isLoading = true;
-      createUser(employeeData).then((res) => {
+      await createUser(employeeData).then((res) => {
         this.employees.unshift(res.data)
         this.state.isLoading = false;
         this.state.showNewEmployeeModal = false;

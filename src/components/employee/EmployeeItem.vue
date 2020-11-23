@@ -1,7 +1,7 @@
 <template>
   <div class="employee-item-container">
     <div class="employee-item row">
-      <EditEmployeeModal 
+      <EmployeeModal 
         v-if="state.showEditModal" 
         :employeeData="employee"
         :onClose="onClickEdit" 
@@ -38,11 +38,8 @@
         </div>
       </div>
       <div class="employee-item__menu col-md-5">
-        <button class="employee-item__button btn btn-sm btn-secondary" @click="onClickAddReview">
+        <button class="employee-item__button btn btn-sm btn-primary" @click="onClickAddReview">
           Add Review
-        </button>
-        <button class="employee-item__button btn btn-sm btn-secondary">
-          Assign Feedback
         </button>
         <button class="employee-item__button btn btn-sm btn-link text-primary" @click="onClickEdit">
           Edit
@@ -56,7 +53,7 @@
 </template>
 
 <script>
-import EditEmployeeModal from './EditEmployeeModal.vue';
+import EmployeeModal from './EmployeeModal.vue';
 import RemoveEmployeeModal from './RemoveEmployeeModal.vue';
 import NewReviewModal from '../review/NewReviewModal.vue';
 
@@ -64,7 +61,7 @@ import { editUser, deleteUser } from '../../api/user.js';
 
 export default {
   components: {
-    EditEmployeeModal,
+    EmployeeModal,
     RemoveEmployeeModal,
     NewReviewModal,
   },
@@ -94,15 +91,19 @@ export default {
     onClickAddReview() {
       this.state.showAddReviewModal = !this.state.showAddReviewModal;
     },
-    onSubmitEdit(employee) {
-      editUser(employee).then((res) => {
-        this.employee = res.data;
+    async onSubmitEdit(employee) {
+      await editUser(employee).then((res) => {
+        console.log(res);
         this.state.showEditModal = !this.state.showEditModal;
+      }).catch((err) => {
+        console.log(err);
       });
     },
-    onSubmitRemove() {
-      deleteUser(this.employee._id).then(() => {
+    async onSubmitRemove() {
+      await deleteUser(this.employee._id).then(() => {
         this.$router.go();
+      }).catch((err) => {
+        console.log(err);
       });
     },
     onSubmitAddReview(review) {
