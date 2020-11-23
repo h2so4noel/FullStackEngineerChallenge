@@ -3,6 +3,9 @@
     <div class="feedbacks">
       <div class="feedbacks__item" v-for="feedback in feedbacks" :key="feedback._id">
         {{ feedback.content }}
+        <div class="feedbacks__assignee small">
+          - {{ feedback.assignedUserId }}, <span class="feedbacks__time">{{ feedback.createdAt }}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -13,6 +16,8 @@ export default {
   props: {
     feedbacks: {},
   },
+  methods: {
+  }
 }
 </script>
 
@@ -22,11 +27,21 @@ export default {
   flex-wrap: wrap;
   justify-content: space-between;
 }
+
 .feedbacks__item {
-  margin: 1rem;
+  margin: 0 1rem 1.5rem 0;
   margin-left: 0;
   border-left: 2px solid $primary;
   padding-left: 15px;
   flex: 0 0 100%;
+}
+
+.feedbacks__time {
+  color: $dark;
+}
+
+.feedbacks__assignee {
+  color: $secondary;
+  font-style: italic;
 }
 </style>

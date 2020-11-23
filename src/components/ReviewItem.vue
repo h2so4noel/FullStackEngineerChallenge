@@ -5,6 +5,7 @@
       <h4>{{ review.taskName }}</h4>
       {{ review.content }}
     </div>
+    <hr />
     <Feedbacks :feedbacks="feedbacks" v-if="feedbacks" />
     <div class="button-menu">
       <button class="btn btn-sm btn-primary">
