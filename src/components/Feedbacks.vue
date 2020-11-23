@@ -4,6 +4,7 @@
       <div class="feedbacks__item" v-for="feedback in feedbacks" :key="feedback._id">
         {{ feedback.content }}
         <div class="feedbacks__assignee small">
+          <!-- TODO: Populate feedback user name (either via API or Mongoose populate) -->
           - {{ feedback.assignedUserId }}, <span class="feedbacks__time">{{ getDateTime(feedback) }}</span>
         </div>
       </div>
@@ -15,6 +16,11 @@
 export default {
   props: {
     feedbacks: {},
+  },
+  data() {
+    return {
+      assignedUser: {},
+    };
   },
   methods: {
     getDateTime(feedback) {

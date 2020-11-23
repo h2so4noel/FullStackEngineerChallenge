@@ -17,7 +17,12 @@ export default {
     };
   },
   created() {
-    
+    this.loadAllUsers();
   },
+  methods: {
+    loadAllUsers() {
+      
+    }
+  }
 }
 </script>
