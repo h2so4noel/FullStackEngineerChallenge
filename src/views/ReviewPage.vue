@@ -2,7 +2,6 @@
   <div class="container">
     <NewReviewModal
       v-if="state.showAddReview" 
-      :employee="{}"
       :onClose="onClickAddReview" 
       :onSubmit="onSubmitAddReview" 
     />

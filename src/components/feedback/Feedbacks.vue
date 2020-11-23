@@ -14,9 +14,7 @@
 
 <script>
 export default {
-  props: {
-    feedbacks: {},
-  },
+  props: ['feedbacks'],
   data() {
     return {
       assignedUser: {},

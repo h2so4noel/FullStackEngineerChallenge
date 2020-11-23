@@ -13,22 +13,22 @@
       :onSubmit="onSubmitNewFeedback"
     />
     <div class="review-item-container">
-    <div class="review-item" v-if="review">
-      <div class="task-name"><span class="text-secondary">Reviewee: {{ review.revieweeUser.name }}</span> - {{ getDateTime }}</div>
-      <h4>{{ review.taskName }}</h4>
-      {{ review.content }}
+      <div class="review-item" v-if="review">
+        <div class="task-name"><span class="text-secondary">Reviewee: {{ review.revieweeUser.name }}</span> - {{ getDateTime }}</div>
+        <h4>{{ review.taskName }}</h4>
+        {{ review.content }}
+      </div>
+      <hr />
+      <Feedbacks :feedbacks="review.feedbacks" />
+      <div class="button-menu">
+        <button class="btn btn-sm btn-link text-primary mr-2" @click="onClickEditReview">
+          Edit Review
+        </button>
+        <button class="btn btn-sm btn-primary" @click="onClickNewFeedback">
+          Assign Feedback
+        </button>
+      </div>
     </div>
-    <hr />
-    <Feedbacks :feedbacks="feedbacks" v-if="feedbacks" />
-    <div class="button-menu">
-      <button class="btn btn-sm btn-link text-primary mr-2" @click="onClickEditReview">
-        Edit Review
-      </button>
-      <button class="btn btn-sm btn-primary" @click="onClickNewFeedback">
-        Assign Feedback
-      </button>
-    </div>
-  </div>
   </div>
 </template>
 
@@ -37,7 +37,8 @@ import EditReviewModal from './EditReviewModal.vue';
 import NewFeedbackModal from '../feedback/NewFeedbackModal.vue';
 import Feedbacks from '../feedback/Feedbacks.vue';
 
-import { editReview } from '../../api/review'
+import { editReview } from '../../api/review';
+import { createFeedback } from '../../api/feedback';
 
 export default {
   components: {
@@ -51,7 +52,6 @@ export default {
   data() {
     return {
       review: {},
-      feedbacks: [],
       state: {
         showEditReviewModal: false,
         showNewFeedbackModal: false,
@@ -65,6 +65,7 @@ export default {
   },
   created() {
     this.review = this.reviewData;
+    console.log(this.review)
   },
   methods: {
     onClickEditReview() {
@@ -82,10 +83,12 @@ export default {
     },
     async onSubmitNewFeedback(feedback) {
       console.log(feedback)
-      // await newFeedback(review).then((res) => {
-      // }).catch((err) => {
-      //   console.log(err);
-      // })
+      await createFeedback(feedback).then((res) => {
+        this.state.showNewFeedbackModal = false;
+        this.review.feedbacks.push(res.data);
+      }).catch((err) => {
+        console.log(err);
+      })
     },
   },
 }

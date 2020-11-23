@@ -46,7 +46,7 @@ export default {
     },
     employee: {
       type: Object,
-      default: () => {return {}},
+      default: null,
     },
   },
   components: {
@@ -66,7 +66,7 @@ export default {
   },
   async created() {
     await this.loadAllUsers();
-    this.review.revieweeUser = this.employee;
+    if (this.employee) this.review.revieweeUser = this.employee;
   },
   methods: {
     async loadAllUsers() {
