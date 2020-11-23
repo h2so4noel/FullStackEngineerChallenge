@@ -45,5 +45,6 @@ export default {
 // margin top for all containers
 .container {
   margin-top: 3rem;
+  margin-bottom: 3rem;
 }
 </style>

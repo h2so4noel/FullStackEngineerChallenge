@@ -2,8 +2,8 @@
   <div class="container">
     <div class="all-reviews-container">
       <h1>Reviews</h1> <hr />
-      <div class="all-reviews__loading spinner-border" role="status" v-if="!state.hasReviews">
-        <span class="sr-only">Loading...</span>
+      <div class="all-reviews__loading">
+        <div class="spinner-border" role="status" v-if="!state.hasReviews" />
       </div>
       <div class="all-reviews" v-if="state.hasReviews">
         <div class="all-reviews__review-item" v-for="review in reviews" :key="review.id">
@@ -38,6 +38,8 @@ export default {
       loadAllReviews().then((res) => {
         this.reviews = res.data;
         this.state.hasReviews = true;
+      }).catch((err) => {
+        console.log(err);
       });
     },
   },
@@ -52,9 +54,8 @@ export default {
 }
 .all-reviews__loading {
   position: absolute;
-  top: 50%;
+  margin-top: 20%;
   left: 50%;
-  transform: translate(-50%, -50%);
 }
 .all-reviews__review-item {
   flex: 0 0 100%;
