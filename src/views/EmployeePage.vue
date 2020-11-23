@@ -1,13 +1,22 @@
 <template>
   <div class="container">
     <div class="employee-page-container">
+      <NewEmployeeModal 
+        v-if="state.showNewEmployeeModal" 
+        :onClose="onClickAddEmployee" 
+        :onSubmit="onSubmitAddEmployee" 
+      />
       <h1>Employees</h1> <hr />
       <div class="employee-page__loading">
         <div class="spinner-border" role="status" v-if="!state.hasEmployees" />
       </div>
       <div class="employee-page">
+        <button class="btn btn-primary" @click="onClickAddEmployee" v-if="!state.isLoading">
+          Add Employee
+        </button>
+        <div class="spinner-border" role="status" v-if="state.isLoading" />
         <div class="employee-page__item" v-for="employee in employees" :key="employee._id">
-          <EmployeeItem :employee="employee" />
+          <EmployeeItem :employeeData="employee" />
         </div>
       </div>
     </div>
@@ -15,11 +24,13 @@
 </template>
 
 <script>
-import { loadAllUsers } from '../api/user.js';
-import EmployeeItem from '../components/EmployeeItem.vue';
+import { loadAllUsers, createUser } from '../api/user.js';
+import NewEmployeeModal from '../components/employee/NewEmployeeModal.vue';
+import EmployeeItem from '../components/employee/EmployeeItem.vue';
 
 export default {
   components: {
+    NewEmployeeModal,
     EmployeeItem,
   },
   data() {
@@ -27,6 +38,8 @@ export default {
       employees: [],
       state: {
         hasEmployees: false,
+        showNewEmployeeModal: false,
+        isLoading: false,
       },
     };
   },
@@ -38,6 +51,20 @@ export default {
       loadAllUsers().then((res) => {
         this.employees = res.data;
         this.state.hasEmployees = true;
+      }).catch((err) => {
+        console.log(err);
+      });
+    },
+    onClickAddEmployee() {
+      this.state.showNewEmployeeModal = !this.state.showNewEmployeeModal;
+    },
+    onSubmitAddEmployee(employeeData) {
+      console.log(employeeData);
+      this.state.isLoading = true;
+      createUser(employeeData).then((res) => {
+        this.employees.unshift(res.data)
+        this.state.isLoading = false;
+        this.state.showNewEmployeeModal = false;
       }).catch((err) => {
         console.log(err);
       });
