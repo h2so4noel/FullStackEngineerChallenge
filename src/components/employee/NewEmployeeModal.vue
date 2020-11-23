@@ -5,7 +5,7 @@
       <div>
         <div class="form-group">
           <label>Name</label>
-          <input v-model="employee.name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Employee's Name">
+          <input v-model="employee.name" class="form-control" placeholder="Enter Employee's Name">
         </div>
       </div>
       <div slot="footer">

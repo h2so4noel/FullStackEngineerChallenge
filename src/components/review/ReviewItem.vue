@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import Feedbacks from './Feedbacks.vue';
+import Feedbacks from '../Feedbacks.vue';
 
 export default {
   components: {

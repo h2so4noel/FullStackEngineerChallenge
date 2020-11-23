@@ -13,6 +13,12 @@
         :onClose="onClickRemove" 
         :onSubmit="onSubmitRemove" 
       />
+      <NewReviewModal
+        v-if="state.showAddReviewModal" 
+        :employee="employee"
+        :onClose="onClickAddReview" 
+        :onSubmit="onSubmitAddReview" 
+      />
       <div class="col-md-3 text-secondary">
         <h5>{{ employee.name }}</h5>
         <div class="small">
@@ -32,7 +38,7 @@
         </div>
       </div>
       <div class="employee-item__menu col-md-5">
-        <button class="employee-item__button btn btn-sm btn-secondary">
+        <button class="employee-item__button btn btn-sm btn-secondary" @click="onClickAddReview">
           Add Review
         </button>
         <button class="employee-item__button btn btn-sm btn-secondary">
@@ -52,6 +58,7 @@
 <script>
 import EditEmployeeModal from './EditEmployeeModal.vue';
 import RemoveEmployeeModal from './RemoveEmployeeModal.vue';
+import NewReviewModal from '../review/NewReviewModal.vue';
 
 import { editUser, deleteUser } from '../../api/user.js';
 
@@ -59,6 +66,7 @@ export default {
   components: {
     EditEmployeeModal,
     RemoveEmployeeModal,
+    NewReviewModal,
   },
   props: {
     employeeData: {},
@@ -69,6 +77,7 @@ export default {
       state: {
         showEditModal: false,
         showRemoveModal: false,
+        showAddReviewModal: false,
       },
     };
   },
@@ -82,6 +91,9 @@ export default {
     onClickRemove() {
       this.state.showRemoveModal = !this.state.showRemoveModal;
     },
+    onClickAddReview() {
+      this.state.showAddReviewModal = !this.state.showAddReviewModal;
+    },
     onSubmitEdit(employee) {
       editUser(employee).then((res) => {
         this.employee = res.data;
@@ -92,6 +104,9 @@ export default {
       deleteUser(this.employee._id).then(() => {
         this.$router.go();
       });
+    },
+    onSubmitAddReview(review) {
+      console.log(review);
     },
   }
 }

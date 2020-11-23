@@ -16,7 +16,7 @@
 
 <script>
 import { loadAllReviews } from '../api/review';
-import ReviewItem from '../components/ReviewItem.vue';
+import ReviewItem from '../components/review/ReviewItem.vue';
 
 export default {
   components: {
