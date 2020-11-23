@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" title="Performance Review App">
     <nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav">
       <a class="navbar-brand" href="#">PerformanceReview</a>
       <div class="navbar-collapse" id="navbarNav">
@@ -27,9 +27,6 @@ export default {
       return this.$route.name === 'EmployeePage';
     }
   },
-  created() {
-    console.log(this.$route.name);
-  }
 }
 </script>
 

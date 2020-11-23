@@ -6,6 +6,12 @@
       :onClose="onClickEditReview" 
       :onSubmit="onSubmitEditReview" 
     />
+    <NewFeedbackModal
+      v-if="state.showNewFeedbackModal"
+      :reviewData="review"
+      :onClose="onClickNewFeedback"
+      :onSubmit="onSubmitNewFeedback"
+    />
     <div class="review-item-container">
     <div class="review-item" v-if="review">
       <div class="task-name"><span class="text-secondary">{{ review.revieweeUser.name }}</span> - {{ getDateTime }}</div>
@@ -28,7 +34,7 @@
 
 <script>
 import EditReviewModal from './EditReviewModal.vue';
-import Feedbacks from '../Feedbacks.vue';
+import Feedbacks from '../feedback/Feedbacks.vue';
 
 import { editReview } from '../../api/review'
 
@@ -61,12 +67,22 @@ export default {
     onClickEditReview() {
       this.state.showEditReviewModal = !this.state.showEditReviewModal;
     },
+    onClickNewFeedback() {
+      this.state.showNewFeedbackModal = !this.state.showNewFeedbackModal;
+    },
     async onSubmitEditReview(review) {
       await editReview(review).then((res) => {
         this.review = res.data;
       }).catch((err) => {
         console.log(err)
       })
+    },
+    async onSubmitNewFeedback(feedback) {
+      console.log(feedback)
+      // await newFeedback(review).then((res) => {
+      // }).catch((err) => {
+      //   console.log(err)
+      // })
     },
   },
 }
