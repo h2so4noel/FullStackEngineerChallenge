@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { loadAllUsers, createUser } from '../api/user.js';
+import { loadAllUsers, createUser } from '../api/user';
 import EmployeeModal from '../components/employee/EmployeeModal.vue';
 import EmployeeItem from '../components/employee/EmployeeItem.vue';
 

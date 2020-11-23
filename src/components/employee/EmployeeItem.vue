@@ -57,8 +57,8 @@ import EmployeeModal from './EmployeeModal.vue';
 import RemoveEmployeeModal from './RemoveEmployeeModal.vue';
 import NewReviewModal from '../review/NewReviewModal.vue';
 
-import { editUser, deleteUser } from '../../api/user.js';
-import { createReview } from '../../api/review.js';
+import { editUser, deleteUser } from '../../api/user';
+import { createReview } from '../../api/review';
 
 export default {
   components: {

@@ -14,7 +14,7 @@
     />
     <div class="review-item-container">
     <div class="review-item" v-if="review">
-      <div class="task-name"><span class="text-secondary">{{ review.revieweeUser.name }}</span> - {{ getDateTime }}</div>
+      <div class="task-name"><span class="text-secondary">Reviewee: {{ review.revieweeUser.name }}</span> - {{ getDateTime }}</div>
       <h4>{{ review.taskName }}</h4>
       {{ review.content }}
     </div>
@@ -24,7 +24,7 @@
       <button class="btn btn-sm btn-link text-primary mr-2" @click="onClickEditReview">
         Edit Review
       </button>
-      <button class="btn btn-sm btn-primary">
+      <button class="btn btn-sm btn-primary" @click="onClickNewFeedback">
         Assign Feedback
       </button>
     </div>
@@ -34,6 +34,7 @@
 
 <script>
 import EditReviewModal from './EditReviewModal.vue';
+import NewFeedbackModal from '../feedback/NewFeedbackModal.vue';
 import Feedbacks from '../feedback/Feedbacks.vue';
 
 import { editReview } from '../../api/review'
@@ -42,6 +43,7 @@ export default {
   components: {
     Feedbacks,
     EditReviewModal,
+    NewFeedbackModal,
   },
   props: {
     reviewData: {},
@@ -52,13 +54,14 @@ export default {
       feedbacks: [],
       state: {
         showEditReviewModal: false,
+        showNewFeedbackModal: false,
       },
     };
   },
   computed: {
     getDateTime() {
       return new Date(this.review.createdAt).toUTCString();
-    }
+    },
   },
   created() {
     this.review = this.reviewData;
@@ -74,14 +77,14 @@ export default {
       await editReview(review).then((res) => {
         this.review = res.data;
       }).catch((err) => {
-        console.log(err)
+        console.log(err);
       })
     },
     async onSubmitNewFeedback(feedback) {
       console.log(feedback)
       // await newFeedback(review).then((res) => {
       // }).catch((err) => {
-      //   console.log(err)
+      //   console.log(err);
       // })
     },
   },

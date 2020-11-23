@@ -5,7 +5,9 @@
       <div>
         <div class="form-group">
           <label>Employee: </label>
-          <input v-model="employee.name" class="form-control" readonly>
+          <select class="form-control" v-model="review.revieweeUser" v-if="state.hasUsers">
+            <option v-for="user in users" v-bind:value="user" :key="user._id">{{ user.name }}</option>
+          </select>
         </div>
         <div class="form-group">
           <label>Taskname</label>
@@ -32,9 +34,21 @@
 
 <script>
 import Modal from '../../components/Modal.vue';
+import { loadAllUsers } from '../../api/user'
 
 export default {
-  props: ['onClose', 'onSubmit', 'employee'],
+  props: {
+    onClose: {
+      type: Function,
+    },
+    onSubmit: {
+      type: Function,
+    },
+    employee: {
+      type: Object,
+      default: () => {return {}},
+    },
+  },
   components: {
     Modal,
   },
@@ -45,12 +59,25 @@ export default {
         revieweeUser: {},
         taskName: '',
       },
+      state: {
+        hasUsers: false,
+      },
     };
   },
-  created() {
+  async created() {
+    await this.loadAllUsers();
     this.review.revieweeUser = this.employee;
   },
   methods: {
+    async loadAllUsers() {
+      await loadAllUsers().then((res) => {
+        this.users = res.data;
+        this.state.hasUsers = true;
+        this.review.revieweeUser = this.users[0];
+      }).catch((err) => {
+        console.log(err);
+      });
+    },
     onAddReview() {
       this.onSubmit(this.review);
     },
