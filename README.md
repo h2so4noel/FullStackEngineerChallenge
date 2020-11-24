@@ -1,4 +1,11 @@
-Simple MEVN performance review application
+# Full Stack Challenge
+
+Simple MEVN performance review application.
+
+Contains three major views
+- Admin - Review List
+- Admin - Employee List
+- Employee - My Page
 
 ## Techs Used
 
@@ -22,3 +29,4 @@ npm run serve
 
 - Split routes between admin view and employee view.
 - Add login and url guarding feature.
+- Redesign overall Review list and Employee list to support pagination and huge amounts of data
