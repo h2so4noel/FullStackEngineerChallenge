@@ -98,7 +98,6 @@ export default {
     },
     onSubmitEdit(employee) {
       editUser(employee).then((res) => {
-        console.log(res);
         this.state.showEditModal = !this.state.showEditModal;
       }).catch((err) => {
         console.log(err);

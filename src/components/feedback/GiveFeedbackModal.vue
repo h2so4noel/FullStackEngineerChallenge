@@ -50,7 +50,6 @@ export default {
   },
   created() {
     this.feedback = this.feedbackData;
-    console.log(this.feedback);
   },
   methods: {
     onGiveBeefback() {

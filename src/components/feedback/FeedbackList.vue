@@ -27,9 +27,6 @@ export default {
       default: () => false,
     },
   },
-  created() {
-    console.log(this.feedbacks);
-  },
   computed: {
     filteredFeedbacks() {
       return this.isPendingList ? _.filter(this.feedbacks, { pending: true }) : this.feedbacks;
