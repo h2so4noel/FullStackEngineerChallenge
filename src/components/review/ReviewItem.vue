@@ -13,7 +13,7 @@
       :onSubmit="onSubmitNewFeedback"
     />
     <div class="review-item-container">
-      <div class="review-item" v-if="review">
+      <div class="review-item" v-if="hasReview">
         <div class="task-name">
           <router-link 
             :to="`/${review.revieweeUser._id}`" 
@@ -25,10 +25,12 @@
       <button 
         class="btn btn-sm btn-link mt-3" 
         @click="onClickViewRevieweeAndFeedbacks" 
-        v-if="!this.state.showDataAndFeedbacks">
-        Show Data
+        v-if="!this.state.showDataAndFeedbacks && !isRequireFeedbackList">
+        Show Feedback
       </button>
-      <FeedbackList :feedbacks="review.feedbacks" v-if="state.showDataAndFeedbacks" />
+      <div class="mt-3" v-if="state.showDataAndFeedbacks">
+        <FeedbackList :feedbacks="review.feedbacks" />
+      </div>
       <hr />
       <div class="button-menu" v-if="!isRequireFeedbackList">
         <button class="btn btn-sm btn-link text-primary mr-2" @click="onClickEditReview">
@@ -38,11 +40,17 @@
           Assign New Feedback
         </button>
       </div>
+      <div class="button-menu" v-if="isRequireFeedbackList">
+        <button class="btn btn-sm btn-primary" @click="onClickNewFeedback">
+          Give Feedback
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import _ from 'lodash';
 import EditReviewModal from './EditReviewModal.vue';
 import AssignFeedbackModal from '../feedback/AssignFeedbackModal.vue';
 import FeedbackList from '../feedback/FeedbackList.vue';
@@ -69,8 +77,7 @@ export default {
   },
   data() {
     return {
-      review: null,
-      revieweeUserId: '',
+      review: {},
       state: {
         showEditReviewModal: false,
         showAssignFeedbackModal: false,
@@ -82,11 +89,13 @@ export default {
     getDateTime() {
       return new Date(this.review.createdAt).toUTCString();
     },
+    hasReview() {
+      return !_.isEmpty(this.review);
+    },
   },
   async created() {
     // TODO: Find new way to implement how to get reviewee name instead of calling user API. Maybe populate?
-    this.revieweeUserId = this.reviewData.revieweeUser;
-    this.loadUserFromIdAndFillReviewData();
+    await this.loadUserFromId();
     this.review = this.reviewData;
   },
   methods: {
@@ -120,11 +129,17 @@ export default {
         console.log(err);
       });
     },
-    loadUserFromIdAndFillReviewData() {
-      loadUserFromId(this.revieweeUserId).then((res) => {
-        this.review = this.reviewData;
+    loadUserFromId() {
+      // This condition is for preventing errors when hot reload. Normally on initial load won't affect anything.
+      let userId;
+      if (_.isObject(this.reviewData.revieweeUser)) {
+        userId = this.reviewData.revieweeUser._id;
+      } else {
+        userId = this.reviewData.revieweeUser;
+      }
+      loadUserFromId(userId).then((res) => {
         this.$set(this.review, 'revieweeUser', res.data);
-      })
+      }); 
     },
   },
 }
