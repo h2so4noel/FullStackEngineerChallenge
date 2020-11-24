@@ -19,8 +19,8 @@
         {{ review.content }}
       </div>
       <hr />
-      <Feedbacks :feedbacks="review.feedbacks" />
-      <div class="button-menu">
+      <FeedbackList :feedbacks="review.feedbacks" />
+      <div class="button-menu" v-if="!hideAdminActions">
         <button class="btn btn-sm btn-link text-primary mr-2" @click="onClickEditReview">
           Edit Review
         </button>
@@ -35,19 +35,26 @@
 <script>
 import EditReviewModal from './EditReviewModal.vue';
 import NewFeedbackModal from '../feedback/NewFeedbackModal.vue';
-import Feedbacks from '../feedback/Feedbacks.vue';
+import FeedbackList from '../feedback/FeedbackList.vue';
 
 import { editReview } from '../../api/review';
 import { createFeedback } from '../../api/feedback';
 
 export default {
   components: {
-    Feedbacks,
+    FeedbackList,
     EditReviewModal,
     NewFeedbackModal,
   },
   props: {
-    reviewData: {},
+    reviewData: {
+      type: Object,
+      default: () => {},
+    },
+    hideAdminActions: {
+      type: Boolean,
+      default: () => false,
+    },
   },
   data() {
     return {
@@ -65,7 +72,6 @@ export default {
   },
   created() {
     this.review = this.reviewData;
-    console.log(this.review)
   },
   methods: {
     onClickEditReview() {
@@ -74,16 +80,16 @@ export default {
     onClickNewFeedback() {
       this.state.showNewFeedbackModal = !this.state.showNewFeedbackModal;
     },
-    async onSubmitEditReview(review) {
-      await editReview(review).then((res) => {
+    onSubmitEditReview(review) {
+      editReview(review).then((res) => {
         this.review = res.data;
       }).catch((err) => {
         console.log(err);
       })
     },
-    async onSubmitNewFeedback(feedback) {
+    onSubmitNewFeedback(feedback) {
       console.log(feedback)
-      await createFeedback(feedback).then((res) => {
+      createFeedback(feedback).then((res) => {
         this.state.showNewFeedbackModal = false;
         this.review.feedbacks.push(res.data);
       }).catch((err) => {

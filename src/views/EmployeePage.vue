@@ -59,9 +59,9 @@ export default {
     onClickAddEmployee() {
       this.state.showNewEmployeeModal = !this.state.showNewEmployeeModal;
     },
-    async onSubmitAddEmployee(employeeData) {
+    onSubmitAddEmployee(employeeData) {
       this.state.isLoading = true;
-      await createUser(employeeData).then((res) => {
+      createUser(employeeData).then((res) => {
         this.employees.unshift(res.data)
         this.state.isLoading = false;
         this.state.showNewEmployeeModal = false;

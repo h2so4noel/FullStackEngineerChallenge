@@ -1,5 +1,5 @@
 <template>
-  <div id="app" title="Performance Review App">
+  <div id="app">
     <nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav">
       <a class="navbar-brand" href="#">PerformanceReview</a>
       <div class="navbar-collapse" id="navbarNav">

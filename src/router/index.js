@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import ReviewPage from '../views/ReviewPage.vue';
 import EmployeePage from '../views/EmployeePage.vue';
+import MyPage from '../views/MyPage.vue';
 import NotFound from '../views/NotFound.vue';
 
 Vue.use(VueRouter)
@@ -23,6 +24,11 @@ const routes = [
     path: '/employees',
     name: 'EmployeePage',
     component: EmployeePage,
+  },
+  {
+    path: '/:employeeId',
+    name: 'MyPage',
+    component: MyPage,
   },
   {
     path: '*',

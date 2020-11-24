@@ -69,8 +69,8 @@ export default {
     if (this.employee) this.review.revieweeUser = this.employee;
   },
   methods: {
-    async loadAllUsers() {
-      await loadAllUsers().then((res) => {
+    loadAllUsers() {
+      loadAllUsers().then((res) => {
         this.users = res.data;
         this.state.hasUsers = true;
         this.review.revieweeUser = this.users[0];

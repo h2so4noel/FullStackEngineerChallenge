@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <NewReviewModal
-      v-if="state.showAddReview" 
+      v-if="state.showAddReviewModal" 
       :onClose="onClickAddReview" 
       :onSubmit="onSubmitAddReview" 
     />
@@ -37,16 +37,16 @@ export default {
       reviews: [],
       state: {
         hasReviews: false,
-        showAddReview: false,
+        showAddReviewModal: false,
       },
     };
   },
-  created() {
-    this.loadAllReviews();
+  async created() {
+    await this.loadAllReviews();
   },
   methods: {
-    async loadAllReviews() {
-      await loadAllReviews().then((res) => {
+    loadAllReviews() {
+      loadAllReviews().then((res) => {
         this.reviews = res.data;
         this.state.hasReviews = true;
       }).catch((err) => {
@@ -54,11 +54,11 @@ export default {
       });
     },
     onClickAddReview() {
-      this.state.showAddReview = !this.state.showAddReview;
+      this.state.showAddReviewModal = !this.state.showAddReviewModal;
     },
-    async onSubmitAddReview(review) {
-      await createReview(review).then((res) => {
-        this.employee.reviews.push(res.data);
+    onSubmitAddReview(review) {
+      createReview(review).then((res) => {
+        this.reviews.push(res.data);
         this.state.showAddReviewModal = false;
       }).catch((err) => {
         console.log(err);

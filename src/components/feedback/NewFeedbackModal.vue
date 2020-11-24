@@ -15,12 +15,11 @@
           </select>
         </div>
       </div>
-      {{ feedback }}
       <div slot="footer">
         <button class="btn btn-primary" @click="onAddReview" v-if="isValidForm">
           Create
         </button>
-        <!-- TODO: Cleanup this piece to be more dynamic -->
+        <!-- TODO: Cleanup this button state to be more dynamic -->
         <button class="btn btn-primary" @click="onAddReview" v-if="!isValidForm" disabled>
           Create
         </button>
@@ -43,7 +42,7 @@ export default {
       review: {},
       users: [],
       feedback: {
-        reviewId: '',
+        review: '',
         assignedUser: '',
         pending: true, // pending allows employee to see feedback they need to respond
         content: '',
@@ -60,12 +59,12 @@ export default {
   },
   created() {
     this.review = this.reviewData;
-    this.feedback.reviewId = this.review._id;
+    this.feedback.review = this.review._id;
     this.loadAllUsers();
   },
   methods: {
-    async loadAllUsers() {
-      await loadAllUsers().then((res) => {
+    loadAllUsers() {
+      loadAllUsers().then((res) => {
         this.users = res.data;
         this.state.hasUsers = true;
       }).catch((err) => {

@@ -20,7 +20,11 @@
         :onSubmit="onSubmitAddReview" 
       />
       <div class="col-md-3 text-secondary">
-        <h5>{{ employee.name }}</h5>
+        <router-link
+          :to="`/${employee._id}`"
+        >
+          <h5>{{ employee.name }}</h5>
+        </router-link>
         <div class="small">
           <div># {{ employee._id }}</div>
         </div>
@@ -92,23 +96,23 @@ export default {
     onClickAddReview() {
       this.state.showAddReviewModal = !this.state.showAddReviewModal;
     },
-    async onSubmitEdit(employee) {
-      await editUser(employee).then((res) => {
+    onSubmitEdit(employee) {
+      editUser(employee).then((res) => {
         console.log(res);
         this.state.showEditModal = !this.state.showEditModal;
       }).catch((err) => {
         console.log(err);
       });
     },
-    async onSubmitRemove() {
-      await deleteUser(this.employee._id).then(() => {
+    onSubmitRemove() {
+      deleteUser(this.employee._id).then(() => {
         this.$router.go();
       }).catch((err) => {
         console.log(err);
       });
     },
-    async onSubmitAddReview(review) {
-      await createReview(review).then((res) => {
+    onSubmitAddReview(review) {
+      createReview(review).then((res) => {
         this.employee.reviews.push(res.data);
         this.state.showAddReviewModal = false;
       }).catch((err) => {
