@@ -11,12 +11,13 @@ Simple MEVN performance review application
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Compiles and serve the project
 ```
+// Client runs on http://localhost:8081 while the server will be on http://localhost:8080
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### Todos and Improvements
+
+- Split routes between admin view and employee view.
+- Add login and url guarding feature.
