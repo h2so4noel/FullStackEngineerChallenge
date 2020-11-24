@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav">
       <a class="navbar-brand" href="#">PerformanceReview</a>
       <div class="navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mr-auto" v-if="includeAdminNav">
           <li class="nav-item" :class="{ 'active': isReviewsPage }">
             <router-link class="nav-link" to="/reviews">Reviews</router-link>
           </li>
@@ -25,7 +25,10 @@ export default {
     },
     isEmployeesPage() {
       return this.$route.name === 'EmployeePage';
-    }
+    },
+    includeAdminNav() {
+      return this.isReviewsPage || this.isEmployeesPage;
+    },
   },
 }
 </script>

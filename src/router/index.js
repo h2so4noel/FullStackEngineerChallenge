@@ -11,7 +11,7 @@ const routes = [
   {
     path: '/',
     name: 'Main',
-    redirect: '/review',
+    redirect: '/reviews',
   },
   // Admin view for list of all reviews in system
   {

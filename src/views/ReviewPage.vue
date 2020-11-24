@@ -7,22 +7,28 @@
     />
     <div class="all-reviews-container">
       <h1>Reviews</h1> <hr />
-      <button class="btn btn-primary" @click="onClickAddReview" v-if="!state.isLoading">
+      <div class="menu">
+        <button class="btn btn-primary" @click="onClickAddReview" v-if="!state.isLoading">
           Add Review
         </button>
+      </div>
       <div class="all-reviews__loading">
         <div class="spinner-border" role="status" v-if="!state.hasReviews" />
       </div>
       <div class="all-reviews" v-if="state.hasReviews">
-        <div class="all-reviews__review-item" v-for="review in reviews" :key="review.id">
+        <div class="all-reviews__review-item" v-for="review in limitedReviews" :key="review._id">
           <ReviewItem :reviewData="review" />
         </div>
+        <button class="load-more btn btn-link" @click="onLoadMore">
+          Load more...
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import _ from 'lodash';
 import { loadAllReviews, createReview } from '../api/review';
 import ReviewItem from '../components/review/ReviewItem.vue';
 import NewReviewModal from '../components/review/NewReviewModal.vue';
@@ -39,10 +45,16 @@ export default {
         hasReviews: false,
         showAddReviewModal: false,
       },
+      limitReviews: 20,
     };
   },
   async created() {
     await this.loadAllReviews();
+  },
+  computed: {
+    limitedReviews() {
+      return _.slice(this.reviews, 0, this.limitReviews);
+    },
   },
   methods: {
     loadAllReviews() {
@@ -64,6 +76,9 @@ export default {
         console.log(err);
       });
     },
+    onLoadMore() {
+      this.limitReviews += 10;
+    },
   },
 }
 </script>
@@ -81,5 +96,12 @@ export default {
 }
 .all-reviews__review-item {
   flex: 0 0 100%;
+}
+
+.load-more {
+  margin: 2rem 0;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 </style>

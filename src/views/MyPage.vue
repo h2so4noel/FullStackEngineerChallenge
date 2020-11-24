@@ -7,6 +7,9 @@
         <div class="my-page__feedbacks mt-4">
           <FeedbackList :feedbacks="feedbacks" isPendingList />
         </div>
+        <div v-for="feedback in feedbacks" :key="feedback._id">
+          <ReviewItem :reviewData="feedback.review" :isRequireFeedbackList="true" />
+        </div>
       </div>
     </div>
   </div>
@@ -15,10 +18,12 @@
 <script>
 import { loadUserFromId } from '../api/user';
 
+import ReviewItem from '../components/review/ReviewItem.vue';
 import FeedbackList from '../components/feedback/FeedbackList.vue';
 
 export default {
   components: {
+    ReviewItem,
     FeedbackList,
   },
   data() {
