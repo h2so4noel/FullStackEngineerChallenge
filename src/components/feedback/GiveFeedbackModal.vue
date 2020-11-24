@@ -21,6 +21,10 @@
         <button class="btn btn-primary" @click="onGiveBeefback" v-if="isValidForm">
           Send
         </button>
+        <!-- TODO: Need better approach -->
+        <button class="btn btn-primary" @click="onGiveBeefback" v-if="!isValidForm" disabled>
+          Send
+        </button>
       </div>
     </Modal>
   </div>

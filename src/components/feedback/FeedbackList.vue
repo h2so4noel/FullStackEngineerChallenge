@@ -50,6 +50,7 @@ export default {
 .feedbacks {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
   justify-content: space-between;
 }
 
