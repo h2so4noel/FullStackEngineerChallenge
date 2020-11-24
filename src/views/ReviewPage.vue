@@ -19,7 +19,7 @@
         <div class="all-reviews__review-item" v-for="review in limitedReviews" :key="review._id">
           <ReviewItem :reviewData="review" />
         </div>
-        <button class="load-more btn btn-link" @click="onLoadMore">
+        <button class="load-more btn btn-link" @click="onLoadMore" v-if="reviews.length >= 20">
           Load more...
         </button>
       </div>
