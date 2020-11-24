@@ -97,7 +97,7 @@ export default {
     },
     onSubmitGiveFeedback(feedback) {
       this.onCloseGiveFeedbackModal();
-      editFeedback(feedback).then((res) => {
+      editFeedback(feedback).then(() => {
         // TODO: Fix this to more elegant approach
         this.$router.go();
       }).catch((err) => {

@@ -97,7 +97,7 @@ export default {
       this.state.showAddReviewModal = !this.state.showAddReviewModal;
     },
     onSubmitEdit(employee) {
-      editUser(employee).then((res) => {
+      editUser(employee).then(() => {
         this.state.showEditModal = !this.state.showEditModal;
       }).catch((err) => {
         console.log(err);
