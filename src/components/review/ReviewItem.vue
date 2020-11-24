@@ -25,24 +25,20 @@
       <button 
         class="btn btn-sm btn-link mt-3" 
         @click="onClickViewRevieweeAndFeedbacks" 
-        v-if="!this.state.showDataAndFeedbacks && !isRequireFeedbackList">
+        v-if="!this.state.showDataAndFeedbacks && !hideAdminButtons">
         Show Feedback
       </button>
       <div class="mt-3" v-if="state.showDataAndFeedbacks">
+        <hr />
         <FeedbackList :feedbacks="review.feedbacks" />
+        <hr />
       </div>
-      <hr />
-      <div class="button-menu" v-if="!isRequireFeedbackList">
+      <div class="button-menu" v-if="!hideAdminButtons">
         <button class="btn btn-sm btn-link text-primary mr-2" @click="onClickEditReview">
           Edit Review
         </button>
         <button class="btn btn-sm btn-primary" @click="onClickNewFeedback">
           Assign New Feedback
-        </button>
-      </div>
-      <div class="button-menu" v-if="isRequireFeedbackList">
-        <button class="btn btn-sm btn-primary" @click="onClickNewFeedback">
-          Give Feedback
         </button>
       </div>
     </div>
@@ -70,7 +66,7 @@ export default {
       type: Object,
       default: () => {},
     },
-    isRequireFeedbackList: {
+    hideAdminButtons: {
       type: Boolean,
       default: () => false,
     },
@@ -113,7 +109,6 @@ export default {
       })
     },
     onSubmitNewFeedback(feedback) {
-      console.log(feedback)
       createFeedback(feedback).then((res) => {
         this.state.showAssignFeedbackModal = false;
         this.review.feedbacks.push(res.data);

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav">
-      <a class="navbar-brand" href="#">PerformanceReview</a>
+      <router-link to="/" class="navbar-brand">PerformanceReview</router-link>
       <div class="navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto" v-if="includeAdminNav">
           <li class="nav-item" :class="{ 'active': isReviewsPage }">

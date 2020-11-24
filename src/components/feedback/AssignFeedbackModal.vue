@@ -16,11 +16,11 @@
         </div>
       </div>
       <div slot="footer">
-        <button class="btn btn-primary" @click="onAddReview" v-if="isValidForm">
+        <button class="btn btn-primary" @click="onCreateFeedback" v-if="isValidForm">
           Create
         </button>
         <!-- TODO: Cleanup this button state to be more dynamic -->
-        <button class="btn btn-primary" @click="onAddReview" v-if="!isValidForm" disabled>
+        <button class="btn btn-primary" @click="onCreateFeedback" v-if="!isValidForm" disabled>
           Create
         </button>
       </div>
@@ -71,7 +71,7 @@ export default {
         console.log(err);
       });
     },
-    onAddReview() {
+    onCreateFeedback() {
       this.onSubmit(this.feedback);
     },
   }

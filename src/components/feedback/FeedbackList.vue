@@ -1,13 +1,7 @@
 <template>
   <div class="feedbacks-container" v-if="feedbacks">
     <div class="feedbacks" v-if="!emptyFeedbacks">
-      <div class="feedbacks__item" v-for="feedback in filteredFeedbacks" :key="feedback._id">
-        <span v-if="feedback.content">{{ feedback.content }}</span>
-        <span class="small feedbacks__pending" v-else> Waiting feedback from assigned employee... </span>
-        <div class="feedbacks__assignee small">
-          - {{ feedback.assignedUser.name }}, <span class="feedbacks__time">{{ getDateTime(feedback) }}</span>
-        </div>
-      </div>
+      <FeedbackItem v-for="feedback in filteredFeedbacks" :key="feedback._id" :feedback="feedback" />
     </div>
     <div v-if="emptyFeedbacks">
       <small class="font-italic">Feedback list is empty...</small>
@@ -17,8 +11,12 @@
 
 <script>
 import _ from 'lodash';
+import FeedbackItem from './FeedbackItem.vue';
 
 export default {
+  components: {
+    FeedbackItem,
+  },
   props: {
     feedbacks: {
       type: Array,
@@ -53,14 +51,6 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-}
-
-.feedbacks__item {
-  margin: 0 1rem 1.5rem 0;
-  margin-left: 0;
-  border-left: 2px solid $primary;
-  padding-left: 15px;
-  flex: 0 0 100%;
 }
 
 .feedbacks__time {
